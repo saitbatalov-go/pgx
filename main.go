@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"pgx_text/simple_connection"
+	"pgx_text/simple_sql"
 )
 
 func main() {
@@ -15,9 +16,13 @@ func main() {
 		panic(err)
 	}
 
-	if err := conn.Ping(ctx); err != nil {
+	if err := simple_sql.CreateTable(ctx, conn); err != nil {
 		panic(err)
 	}
 
-	fmt.Println("Successfully connected!")
+	if err := simple_sql.InsertRow(ctx, conn); err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Successfully")
 }

@@ -8,5 +8,5 @@ import (
 
 func CheckConnection(ctx context.Context) (*pgx.Conn, error) {
 
-	return pgx.Connect(ctx, "postgres:\\postgres")
+	return pgx.Connect(ctx, "postgres:\\postgres:root@localhost:5432/postgres")
 }
