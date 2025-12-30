@@ -13,6 +13,7 @@ func main() {
 	conn, err := simple_connection.CheckConnection(ctx)
 
 	if err != nil {
+		fmt.Println("Ошибка в подключении", err)
 		panic(err)
 	}
 
@@ -20,7 +21,19 @@ func main() {
 		panic(err)
 	}
 
-	if err := simple_sql.InsertRow(ctx, conn); err != nil {
+	//if err := simple_sql.InsertRow(
+	//	ctx,
+	//	conn,
+	//	"Ужин",
+	//	"надо поесть",
+	//	false,
+	//	time.Now(),
+	//); err != nil {
+	//	panic(err)
+	//
+	//}
+
+	if err := simple_sql.SelectRow(ctx, conn); err != nil {
 		panic(err)
 	}
 
