@@ -1,41 +1,17 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"pgx_text/simple_connection"
-	"pgx_text/simple_sql"
+	"pgx_text/http_server"
 )
 
 func main() {
+	fmt.Println("Запуск HTTP Server круто!")
 
-	ctx := context.Background()
-	conn, err := simple_connection.CheckConnection(ctx)
-
+	err := http_server.StartHTTPServer()
 	if err != nil {
-		fmt.Println("Ошибка в подключении", err)
-		panic(err)
+		fmt.Println("Произошла ошибка во время запуска сервера =(", err)
+	} else {
+		fmt.Println("Сервер запустился успешгнл!")
 	}
-
-	if err := simple_sql.CreateTable(ctx, conn); err != nil {
-		panic(err)
-	}
-
-	//if err := simple_sql.InsertRow(
-	//	ctx,
-	//	conn,
-	//	"Ужин",
-	//	"надо поесть",
-	//	false,
-	//	time.Now(),
-	//); err != nil {
-	//	panic(err)
-	//
-	//}
-
-	if err := simple_sql.SelectRow(ctx, conn); err != nil {
-		panic(err)
-	}
-
-	fmt.Println("Successfully")
 }

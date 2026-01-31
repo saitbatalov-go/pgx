@@ -7,3 +7,16 @@
 /dataSources/
 /dataSources.local.xml
 .env
+# Docker и базы данных
+out/
+pgdata/
+data/
+*.db
+*.sqlite3
+
+# Логи
+*.log
+
+# Временные файлы
+tmp/
+temp/
