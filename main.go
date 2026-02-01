@@ -1,17 +1,35 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"pgx_text/http_server"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 )
 
-func main() {
-	fmt.Println("Запуск HTTP Server круто!")
-
-	err := http_server.StartHTTPServer()
-	if err != nil {
-		fmt.Println("Произошла ошибка во время запуска сервера =(", err)
-	} else {
-		fmt.Println("Сервер запустился успешгнл!")
+func job(ctx context.Context) {
+	i := 1
+	for {
+		select {
+		case <-ctx.Done():
+			fmt.Println("Job done!")
+			return
+		case <-time.After(1 * time.Second):
+			fmt.Println("Application job ...", i)
+			i++
+		}
 	}
+}
+
+func main() {
+	fmt.Println("PID", os.Getpid())
+
+	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGTERM)
+
+	job(ctx)
+
+	fmt.Println("Application stopper correcrtly")
+
 }
